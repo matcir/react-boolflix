@@ -47,16 +47,20 @@ export default function App() {
         setFilteredAll(all);
       })
 
+  }
 
-
-    // fetch(url)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     setFilteredMovies(data.results)
-    //   })
-    //   .catch(err => {
-    //     alert("Si è verificato un errore nel carimento dei dati, riprova")
-    //   })
+  function getRating(rating) {
+    const stars = []
+    const rounded = Math.floor(rating / 2)
+    for (let i = 0; i < 5; i++) {
+      if (i < rounded) {
+        stars.push(<i className="bi bi-star-fill text-warning"></i>)
+      }
+      else {
+        stars.push(<i className="bi bi-star text-warning"></i>)
+      }
+    }
+    return stars
   }
 
 
@@ -91,7 +95,7 @@ export default function App() {
                         <span style={{ fontSize: '2em' }}>🌐</span>
                       )}
                     </li>
-                    <li>{item.vote_average}</li>
+                    <li>{getRating(item.vote_average)}</li>
                   </ul>
                 </div>
               </div>
