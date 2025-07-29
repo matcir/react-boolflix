@@ -2,11 +2,11 @@ import { useState, useEffect } from "react"
 
 export default function App() {
 
-  const [filteredMovies, setFilteredMovies] = useState(null)
+  const [filteredMovies, setFilteredMovies] = useState([])
   const [searchQuery, setSearchQuery] = useState("")
 
-  function handleSearchClick() {
-
+  function handleSubmit(e) {
+    e.preventDefault()
     const url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_DBMOVIE_KEY}&query=${searchQuery}`
 
     fetch(url)
@@ -24,12 +24,14 @@ export default function App() {
     <>
       <div className="container">
         <h3>Effettua una ricerca per titolo</h3>
-        <input className="px-3" type="text" placeholder="Inserisci il titolo di un film..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-        <button className="px-3 btn btn-primary" onClick={handleSearchClick}>Cerca</button>
+        <form onSubmit={handleSubmit}>
+          <input className="px-3" type="text" placeholder="Inserisci il titolo di un film..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          <button type="submit" className="px-3 btn btn-primary">Cerca</button>
+        </form>
         <div className="row row-cols-1 row-cols-md-3 g-3">
           {filteredMovies?.map(movie => (
-            <div className="col">
-              <div key={movie.id} className="card p-3">
+            <div key={movie.id} className="col">
+              <div className="card h-100 p-3">
                 <ul className="list-unstyled list-group">
                   <li>{movie.title}</li>
                   <li>{movie.original_title}</li>
@@ -40,7 +42,7 @@ export default function App() {
             </div>
           ))}
         </div>
-      </div>
+      </div >
     </>
   )
 }
