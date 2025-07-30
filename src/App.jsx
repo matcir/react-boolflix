@@ -55,10 +55,10 @@ export default function App() {
     const rounded = Math.floor(rating / 2)
     for (let i = 0; i < 5; i++) {
       if (i < rounded) {
-        stars.push(<i className="bi bi-star-fill text-warning"></i>)
+        stars.push(<i key={i} className="bi bi-star-fill text-warning"></i>)
       }
       else {
-        stars.push(<i className="bi bi-star text-warning"></i>)
+        stars.push(<i key={i} className="bi bi-star text-warning"></i>)
       }
     }
     return stars
