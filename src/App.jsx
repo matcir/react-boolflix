@@ -66,12 +66,17 @@ export default function App() {
 
   return (
     <>
+
+      <header>
+        <div className="bg-dark d-flex justify-content-between">
+          <h3 className="p-3 text-danger">BOOLFLIX</h3>
+          <form className="p-3 " onSubmit={handleSubmit}>
+            <input type="text" placeholder="Inserisci il titolo di un film..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <button type="submit" className="mx-2 btn btn-danger">Cerca</button>
+          </form>
+        </div>
+      </header>
       <div className="p-3 container">
-        <h3>Effettua una ricerca per titolo</h3>
-        <form className="p-3" onSubmit={handleSubmit}>
-          <input type="text" placeholder="Inserisci il titolo di un film..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-          <button type="submit" className="mx-3  btn btn-primary">Cerca</button>
-        </form>
         <div className="p-3 row row-cols-1 row-cols-md-3 g-3">
           {filteredAll?.map(item => (
             <div key={item.id} className="col">
@@ -82,7 +87,9 @@ export default function App() {
                 <div className="card-body">
                   <ul className="list-unstyled list-group">
                     <li>{item.title}</li>
-                    <li>{item.original_title}</li>
+                    {item.original_title !== item.title && (
+                      <li>{item.original_title}</li>
+                    )}
                     <li>
                       {LanguageToCountry[item.original_language] ? (
                         <ReactCountryFlag
